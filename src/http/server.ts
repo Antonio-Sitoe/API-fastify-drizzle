@@ -7,9 +7,6 @@ import {
   ZodTypeProvider,
 } from 'fastify-type-provider-zod'
 import { errorHandler } from '@/http/routes/error-handler'
-import { CreateUser } from './routes/users/create-users'
-import { signInUser } from './routes/users/sign-in'
-import { passwordRecover } from './routes/users/password-reset'
 import { knex } from '@/lib/knex'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
@@ -36,10 +33,6 @@ app.get('/', async () => {
 
   return transaction
 })
-
-app.register(CreateUser)
-app.register(signInUser)
-app.register(passwordRecover)
 
 app
   .listen({
