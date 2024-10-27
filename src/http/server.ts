@@ -10,6 +10,7 @@ import { errorHandler } from '@/http/routes/error-handler'
 import { CreateUser } from './routes/users/create-users'
 import { signInUser } from './routes/users/sign-in'
 import { passwordRecover } from './routes/users/password-reset'
+import { knex } from '@/lib/knex'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -18,8 +19,22 @@ app.setValidatorCompiler(validatorCompiler)
 app.setErrorHandler(errorHandler)
 app.register(fastifyCors)
 
-app.get('/', () => {
-  return 'Hello MUndo'
+/*
+  Migration - um controle de versao
+  historico de mudancas feitas no banco de dados
+
+ */
+
+app.get('/', async () => {
+  const transaction = await knex('transactions')
+    .insert({
+      id: crypto.randomUUID(),
+      title: 'Transacao de Teste',
+      amount: 1000,
+    })
+    .returning('*')
+
+  return transaction
 })
 
 app.register(CreateUser)
