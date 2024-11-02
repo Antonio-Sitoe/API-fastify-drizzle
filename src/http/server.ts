@@ -1,6 +1,6 @@
 import fastify from 'fastify'
 import fastifyCors from '@fastify/cors'
-
+import { transactionsRoutes } from '@/http/routes/transactions'
 import {
   serializerCompiler,
   validatorCompiler,
@@ -15,6 +15,8 @@ app.setSerializerCompiler(serializerCompiler)
 app.setValidatorCompiler(validatorCompiler)
 app.setErrorHandler(errorHandler)
 app.register(fastifyCors)
+// ROUTES
+app.register(transactionsRoutes)
 
 /*
   Migration - um controle de versao
