@@ -8,6 +8,7 @@ import {
 } from 'fastify-type-provider-zod'
 import { errorHandler } from '@/http/routes/error-handler'
 import { knex } from '@/lib/knex'
+import { Env } from '@/env'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -38,7 +39,7 @@ app.get('/', async () => {
 
 app
   .listen({
-    port: 3333,
+    port: Env.PORT,
   })
   .then(() => {
     console.log('server running in http://localhost:3333')
