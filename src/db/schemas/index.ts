@@ -6,3 +6,10 @@ export const usersTable = sqliteTable('users', {
   age: int().notNull(),
   email: text().notNull().unique(),
 })
+
+export const transactionsTable = sqliteTable('transactions', {
+  id: int().primaryKey({ autoIncrement: true }),
+  title: text().notNull(),
+  amount: int().notNull(),
+  type: text().notNull(),
+})
